@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { StaticMap } from 'react-map-gl';
+
+import Atlas from './components/Atlas';
+import { useAtlas } from './providers/atlasProvider';
+
+const TOKEN =
+  'pk.eyJ1IjoiZGF2aXRlb2Rvcm8iLCJhIjoiY2pmYnJ1OHhyMGpuNzMxcGE5OTdvaXZlMCJ9._Cphfi7ZEtDPK8ohgLJGRQ';
 
 function App() {
+  // const [{ viewport }, dispatch] = useAtlas();
+  // const layer = useLayer([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div class="map-container">
+      <Atlas layers={[]}>
+        <StaticMap mapboxApiAccessToken={TOKEN} />
+      </Atlas>
     </div>
   );
 }
