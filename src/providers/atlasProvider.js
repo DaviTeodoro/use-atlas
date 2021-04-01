@@ -10,7 +10,7 @@ const INITIAL_STATE = {
     zoom: 12,
   },
   map: null,
-  layers: [],
+  layers: new Map(),
 };
 
 function reducer(state, { type, payload }) {
@@ -28,28 +28,14 @@ function reducer(state, { type, payload }) {
         map: payload,
       };
     }
-    case 'SET_LAYERS': {
+    case 'SET_LAYER': {
       return {
         ...state,
-        layers: payload,
-      };
-    }
-    case 'ADD_LAYER': {
-      return {
-        ...state,
-        layers: [...state.layers, payload],
+        layers: state.layers.set(payload.id, { ...payload }),
       };
     }
     case 'CLEAR_LAYERS': {
       return { ...state, layers: [] };
-    }
-    case 'REMOVE_LAYER_BY_ID': {
-      // console.log(state.layers, payload);
-      console.log(state.layers.filter((layer) => layer.id !== payload));
-      return {
-        ...state,
-        layers: state.layers.filter((layer) => layer.id !== payload),
-      };
     }
     default: {
       throw new Error(`Unhandled action type: ${type}`);

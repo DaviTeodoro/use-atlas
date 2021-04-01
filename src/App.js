@@ -2,7 +2,6 @@ import './App.css';
 import { StaticMap } from 'react-map-gl';
 
 import Atlas from './components/Atlas';
-import { useAtlas } from './providers/atlasProvider';
 import useLayer from './hooks/useLayer';
 
 const TOKEN =
@@ -63,19 +62,17 @@ const geojson2 = {
   ],
 };
 function App() {
-  // const [{ viewport }, dispatch] = useAtlas();
-  // const layer = useLayer([]);
-  const [layer, setLayer] = useLayer(geojson);
-  // const [layer2, setLayer2] = useLayer(geojson2);
+  const [setData, setStyles] = useLayer(geojson);
+  const [_setData, _setStyles] = useLayer(geojson2);
 
-  console.log(layer);
+  // const probe = useProbe();
 
   return (
     <>
-      <button onClick={() => setLayer(geojson)}>geo1</button>
-      <button onClick={() => setLayer(geojson2)}>geo2</button>
+      <button onClick={() => setData(geojson)}>geo1</button>
+      <button onClick={() => setData(geojson2)}>geo2</button>
       <div class="map-container">
-        <Atlas layers={[layer]}>
+        <Atlas>
           <StaticMap mapboxApiAccessToken={TOKEN} />
         </Atlas>
       </div>
