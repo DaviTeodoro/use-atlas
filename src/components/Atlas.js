@@ -6,16 +6,13 @@ import { GeoJsonLayer } from '@deck.gl/layers';
 const renderInternalLayers = (layers) => {
   let internalLayers = [];
   for (let l of layers.values()) {
-    internalLayers.push(
-      new GeoJsonLayer({
-        id: l.id,
-        data: l.data,
-        pickable: true,
-        stroked: false,
-        getFillColor: [160, 160, 180, 160],
-        getRadius: 3,
-      })
-    );
+    switch (l.type) {
+      case 'GEO_JSON':
+        internalLayers.push(new GeoJsonLayer(l));
+        break;
+      default:
+        break;
+    }
   }
   return internalLayers;
 };
