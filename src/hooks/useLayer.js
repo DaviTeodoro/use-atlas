@@ -36,14 +36,7 @@ export default function useLayer(data, config = DEFAULT_CONFIG) {
       type: 'SET_LAYER',
       payload: createNewLayer(layerId, _data, _config),
     });
-  }, [_data]);
-
-  useEffect(() => {
-    dispatch({
-      type: 'SET_LAYER',
-      payload: createNewLayer(layerId, _data, _config),
-    });
-  }, [_config]);
+  }, [_data, _config, dispatch]);
 
   return [setData, setConfig];
 }

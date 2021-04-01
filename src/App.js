@@ -63,7 +63,7 @@ const geojson2 = {
 };
 function App() {
   const [setData, setConfig] = useLayer(geojson);
-  // const [_setData, _setStyles] = useLayer(geojson2);
+  const [_setData, _setConfig] = useLayer(geojson2);
 
   // const probe = useProbe();
 
@@ -74,6 +74,15 @@ function App() {
       <button
         onClick={() =>
           setConfig((config) => {
+            return { ...config, getFillColor: [160, 160, 180, 60] };
+          })
+        }
+      >
+        config
+      </button>
+      <button
+        onClick={() =>
+          _setConfig((config) => {
             return { ...config, getFillColor: [160, 160, 180, 60] };
           })
         }
