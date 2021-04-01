@@ -62,8 +62,8 @@ const geojson2 = {
   ],
 };
 function App() {
-  const [setData, setStyles] = useLayer(geojson);
-  const [_setData, _setStyles] = useLayer(geojson2);
+  const [setData, setConfig] = useLayer(geojson);
+  // const [_setData, _setStyles] = useLayer(geojson2);
 
   // const probe = useProbe();
 
@@ -71,6 +71,16 @@ function App() {
     <>
       <button onClick={() => setData(geojson)}>geo1</button>
       <button onClick={() => setData(geojson2)}>geo2</button>
+      <button
+        onClick={() =>
+          setConfig((config) => {
+            return { ...config, getFillColor: [160, 160, 180, 60] };
+          })
+        }
+      >
+        config
+      </button>
+
       <div class="map-container">
         <Atlas>
           <StaticMap mapboxApiAccessToken={TOKEN} />
