@@ -3,7 +3,7 @@ import { StaticMap } from 'react-map-gl';
 
 import Atlas from './components/Atlas';
 import useLayer from './hooks/useLayer';
-import useGeoJson from './hooks/useGeoJson';
+import useChoropleth from './hooks/useChoropleth';
 
 const TOKEN =
   'pk.eyJ1IjoiZGF2aXRlb2Rvcm8iLCJhIjoiY2pmYnJ1OHhyMGpuNzMxcGE5OTdvaXZlMCJ9._Cphfi7ZEtDPK8ohgLJGRQ';
@@ -64,7 +64,7 @@ const geojson2 = {
 };
 function App() {
   const [setData, setConfig] = useLayer(geojson);
-  const [_setData, _setConfig] = useGeoJson(geojson2);
+  const [_setData, _setConfig] = useChoropleth(geojson2);
 
   // const probe = useProbe();
 
