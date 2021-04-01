@@ -10,7 +10,6 @@ const INITIAL_STATE = {
     zoom: 12,
   },
   map: null,
-
   layers: [],
 };
 
