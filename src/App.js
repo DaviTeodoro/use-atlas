@@ -1,9 +1,7 @@
 import './App.css';
 import { StaticMap } from 'react-map-gl';
 
-import Atlas from './components/Atlas';
-import useLayer from './hooks/useLayer';
-import useChoropleth from './hooks/useChoropleth';
+import { Atlas, useLayer, useChoropleth } from './use-atlas';
 
 const TOKEN =
   'pk.eyJ1IjoiZGF2aXRlb2Rvcm8iLCJhIjoiY2pmYnJ1OHhyMGpuNzMxcGE5OTdvaXZlMCJ9._Cphfi7ZEtDPK8ohgLJGRQ';
@@ -168,7 +166,9 @@ function App() {
         config
       </button> */}
 
-      <button onClick={() => setDomain([1, 10])}>domain</button>
+      <button onClick={() => setDomain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])}>
+        domain
+      </button>
       <div class="map-container">
         <Atlas>
           <StaticMap mapboxApiAccessToken={TOKEN} />
