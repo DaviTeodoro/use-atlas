@@ -62,17 +62,94 @@ const geojson2 = {
     },
   ],
 };
-function App() {
-  const [setData, setConfig] = useLayer(geojson);
-  const [_setData, _setConfig] = useChoropleth(geojson2);
 
+const choropleth = [
+  {
+    type: 'Feature',
+    properties: {
+      stroke: '#555555',
+      'stroke-width': 2,
+      'stroke-opacity': 1,
+      fill: '#555555',
+      'fill-opacity': 0.5,
+      idade: 5,
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [35.489444732666016, 33.91743764437134],
+          [35.5026626586914, 33.91743764437134],
+          [35.5026626586914, 33.9285481685662],
+          [35.489444732666016, 33.9285481685662],
+          [35.489444732666016, 33.91743764437134],
+        ],
+      ],
+    },
+  },
+  {
+    type: 'Feature',
+    properties: {
+      stroke: '#555555',
+      'stroke-width': 2,
+      'stroke-opacity': 1,
+      fill: '#555555',
+      'fill-opacity': 0.5,
+      idade: 10,
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [35.50661087036133, 33.91701028758101],
+          [35.5217170715332, 33.91701028758101],
+          [35.5217170715332, 33.92826330143173],
+          [35.50661087036133, 33.92826330143173],
+          [35.50661087036133, 33.91701028758101],
+        ],
+      ],
+    },
+  },
+  {
+    type: 'Feature',
+    properties: {
+      stroke: '#555555',
+      'stroke-width': 2,
+      'stroke-opacity': 1,
+      fill: '#555555',
+      'fill-opacity': 0.5,
+      idade: 15,
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [35.52480697631836, 33.91615556757033],
+          [35.538883209228516, 33.91615556757033],
+          [35.538883209228516, 33.92883303474793],
+          [35.52480697631836, 33.92883303474793],
+          [35.52480697631836, 33.91615556757033],
+        ],
+      ],
+    },
+  },
+];
+function App() {
+  // const [setData, setConfig] = useLayer(geojson);
+  const [_setData, setIndicator, setDomain] = useChoropleth(
+    choropleth,
+    'idade',
+    [1, 3, 6, 11]
+  );
+
+  console.log(choropleth);
   // const probe = useProbe();
 
   return (
     <>
-      <button onClick={() => setData(geojson)}>geo1</button>
-      <button onClick={() => setData(geojson2)}>geo2</button>
-      <button
+      {/* <button onClick={() => setData(geojson)}>geo1</button>
+      <button onClick={() => setData(geojson2)}>geo2</button> */}
+      {/* <button
         onClick={() =>
           setConfig((config) => {
             return { ...config, getFillColor: [160, 160, 180, 60] };
@@ -80,8 +157,8 @@ function App() {
         }
       >
         config
-      </button>
-      <button
+      </button> */}
+      {/* <button
         onClick={() =>
           _setConfig((config) => {
             return { ...config, getFillColor: [160, 160, 180, 60] };
@@ -89,8 +166,9 @@ function App() {
         }
       >
         config
-      </button>
+      </button> */}
 
+      <button onClick={() => setDomain([1, 10])}>domain</button>
       <div class="map-container">
         <Atlas>
           <StaticMap mapboxApiAccessToken={TOKEN} />

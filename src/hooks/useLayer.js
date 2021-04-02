@@ -18,10 +18,10 @@ const createNewLayer = (id, data, config) => {
   };
 };
 
-export default function useLayer(data, config = DEFAULT_CONFIG) {
+export default function useLayer(data, config) {
   const [, dispatch] = useAtlas();
   const { current: layerId } = useRef(uuidv4());
-  const [_config, setConfig] = useState(config);
+  const [_config, setConfig] = useState({ ...DEFAULT_CONFIG, ...config });
   const [_data, setData] = useState(data);
 
   useEffect(() => {
