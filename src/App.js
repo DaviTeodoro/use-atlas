@@ -1,7 +1,7 @@
 import './App.css';
 import { StaticMap } from 'react-map-gl';
 
-import { Atlas, useLayer, useChoropleth } from './use-atlas';
+import { Atlas, useLayer, useChoropleth } from 'use-atlas';
 
 const TOKEN =
   'pk.eyJ1IjoiZGF2aXRlb2Rvcm8iLCJhIjoiY2pmYnJ1OHhyMGpuNzMxcGE5OTdvaXZlMCJ9._Cphfi7ZEtDPK8ohgLJGRQ';

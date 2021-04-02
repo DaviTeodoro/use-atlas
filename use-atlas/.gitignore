@@ -5,8 +5,6 @@
 /.pnp
 .pnp.js
 /use-atlas/node_modules
-/use-atlas/lib
-
 # testing
 /coverage
 

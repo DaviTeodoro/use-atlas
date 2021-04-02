@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { AtlasProvider } from './use-atlas/index';
+import { AtlasProvider } from 'use-atlas';
 
 ReactDOM.render(
   <React.StrictMode>
