@@ -28,7 +28,7 @@ AtlasProvider provides the Atlas state and dispatcher witch will be consumed by 
 import App from './App'
 import { AtlasProvider } from 'use-atlas'
 
-export default function MyApp() {
+export default function App() {
   return (
     <AtlasProvider>
       <App />
@@ -63,7 +63,7 @@ function App() {
 export default App
 ```
 
-> Have you notice the StaticMap? It is your choice. useAtlas is agnostic about which static map service you chose. For more information see [using-with-map](https://deck.gl/docs/get-started/using-with-map).
+> Did you notice the StaticMap? It is your choice. useAtlas is agnostic about which static map service you chose. For more information see [using-with-map](https://deck.gl/docs/get-started/using-with-map).
 
 # API
 
@@ -78,10 +78,10 @@ AtlasProvider provides the Atlas state and dispatcher witch will be consumed by 
 ```jsx
 import { AtlasProvider } from 'use-atlas'
 
-export default function MyApp() {
+export default function App() {
   return (
     <AtlasProvider>
-      <YourApp>
+      <App>
     </AtlasProvider>
   )
 }
