@@ -1,7 +1,7 @@
-import { useEffect, useReducer } from 'react'
-import useLayer from './useLayer'
-import { scaleThreshold } from 'd3-scale'
-import { color } from 'd3-color'
+import { useEffect, useReducer } from 'react';
+import useLayer from './useLayer';
+import { scaleThreshold } from 'd3-scale';
+import { color } from 'd3-color';
 
 function reducer(state, { type, payload }) {
   // console.log(type, payload)
@@ -10,42 +10,42 @@ function reducer(state, { type, payload }) {
       return {
         ...state,
         data: payload
-      }
+      };
     }
     case 'SET_INDICATOR': {
       return {
         ...state,
         indicator: payload
-      }
+      };
     }
     case 'SET_DOMAIN': {
       return {
         ...state,
         domain: payload
-      }
+      };
     }
     case 'SET_COLOR_RANGE': {
       return {
         ...state,
         colorRange: payload
-      }
+      };
     }
     case 'SET_CHOROPLETH': {
       const colorScale = scaleThreshold()
         .domain(state.domain)
-        .range(state.colorRange)
+        .range(state.colorRange);
       return {
         ...state,
         data: state.data.map((d) => {
-          const rgbColor = color(colorScale(d.properties[state.indicator]))
-          d.fillColor = [rgbColor.r, rgbColor.g, rgbColor.b, 160]
-          return d
+          const rgbColor = color(colorScale(d.properties[state.indicator]));
+          d.fillColor = [rgbColor.r, rgbColor.g, rgbColor.b, 160];
+          return d;
         })
-      }
+      };
     }
 
     default: {
-      throw new Error(`Unhandled action type: ${type}`)
+      throw new Error(`Unhandled action type: ${type}`);
     }
   }
 }
@@ -59,37 +59,37 @@ export default function useChoropleth(data, config) {
       domain: config.domain,
       colorRange: config.colorRange
     }
-  )
+  );
 
   const [{ setData, setConfig }, layerId] = useLayer(_data, {
     ...config,
     getFillColor: (object) => object.fillColor
-  })
+  });
 
   useEffect(() => {
-    dispatch({ type: 'SET_CHOROPLETH' })
-  }, [])
+    dispatch({ type: 'SET_CHOROPLETH' });
+  }, []);
 
   const setDomain = (domain) => {
-    dispatch({ type: 'SET_DOMAIN', payload: domain })
-    dispatch({ type: 'SET_CHOROPLETH' })
-    setData(_data)
-  }
+    dispatch({ type: 'SET_DOMAIN', payload: domain });
+    dispatch({ type: 'SET_CHOROPLETH' });
+    setData(_data);
+  };
 
   const setIndicator = (indicator) => {
-    dispatch({ type: 'SET_INDICATOR', payload: indicator })
-    dispatch({ type: 'SET_CHOROPLETH' })
-    setData(_data)
-  }
+    dispatch({ type: 'SET_INDICATOR', payload: indicator });
+    dispatch({ type: 'SET_CHOROPLETH' });
+    setData(_data);
+  };
 
   const setColorRange = (colorRange) => {
-    dispatch({ type: 'SET_COLOR_RANGE', payload: colorRange })
-    dispatch({ type: 'SET_CHOROPLETH' })
-    setData(_data)
-  }
+    dispatch({ type: 'SET_COLOR_RANGE', payload: colorRange });
+    dispatch({ type: 'SET_CHOROPLETH' });
+    setData(_data);
+  };
 
   return [
     { setData, setIndicator, setDomain, setColorRange, setConfig },
     layerId
-  ]
+  ];
 }

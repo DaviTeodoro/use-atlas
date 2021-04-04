@@ -142,6 +142,7 @@ function Layer() {
     <div style={{ height: '100vh' }}>
       <h2>useLayer</h2>
       <div
+        style={{ cursor: 'pointer' }}
         onClick={() =>
           setConfig({
             getFillColor: [242, 108, 100, 160]
@@ -150,7 +151,49 @@ function Layer() {
       >
         set config
       </div>
-      <div onClick={() => setData(choropleth)}>set data</div>
+
+      <div style={{ cursor: 'pointer' }} onClick={() => setData(choropleth)}>
+        set data
+      </div>
+      <div
+        style={{ cursor: 'pointer' }}
+        onClick={() =>
+          setConfig({
+            visible: false
+          })
+        }
+      >
+        set invisible
+      </div>
+    </div>
+  );
+}
+
+function Choropleth() {
+  const [{ setData, setIndicator, setDomain, setConfig }] = useChoropleth(
+    choropleth,
+    {
+      indicator: 'idade',
+      domain: [(1, 3, 6, 11)],
+      colorRange: schemeBlues[7]
+    }
+  );
+  return (
+    <div style={{ height: '100vh' }}>
+      <h2>useChoropleth</h2>
+      <div
+        style={{ cursor: 'pointer' }}
+        onClick={() =>
+          setConfig({
+            getFillColor: [242, 108, 100, 160]
+          })
+        }
+      >
+        set config
+      </div>
+      <div style={{ cursor: 'pointer' }} onClick={() => setData(choropleth)}>
+        set data
+      </div>
     </div>
   );
 }
@@ -167,6 +210,7 @@ function App() {
           </Atlas>
         </div>
         <div style={{ marginLeft: '810px' }}>
+          <Choropleth />
           <Layer />
         </div>
       </div>
