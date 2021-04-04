@@ -1,11 +1,13 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { StaticMap } from 'react-map-gl'
+import { StaticMap } from 'react-map-gl';
+import { schemeBlues } from 'd3-scale-chromatic';
 
-import { Atlas, useLayer, useChoropleth } from 'use-atlas'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { Atlas, useLayer, useChoropleth } from 'use-atlas';
+import './App.css';
 
 const TOKEN =
-  'pk.eyJ1IjoiZGF2aXRlb2Rvcm8iLCJhIjoiY2pmYnJ1OHhyMGpuNzMxcGE5OTdvaXZlMCJ9._Cphfi7ZEtDPK8ohgLJGRQ'
+  'pk.eyJ1IjoiZGF2aXRlb2Rvcm8iLCJhIjoiY2pmYnJ1OHhyMGpuNzMxcGE5OTdvaXZlMCJ9._Cphfi7ZEtDPK8ohgLJGRQ';
 
 const geojson = {
   type: 'FeatureCollection',
@@ -39,7 +41,7 @@ const geojson = {
       }
     }
   ]
-}
+};
 const geojson2 = {
   type: 'FeatureCollection',
   features: [
@@ -60,7 +62,7 @@ const geojson2 = {
       }
     }
   ]
-}
+};
 
 const choropleth = [
   {
@@ -132,50 +134,45 @@ const choropleth = [
       ]
     }
   }
-]
-function App() {
-  // const [setData, setConfig] = useLayer(geojson);
-  const [_setData, setIndicator, setDomain] = useChoropleth(
-    choropleth,
-    'idade',
-    [1, 3, 6, 11]
-  )
+];
 
-  // const probe = useProbe();
+function Layer() {
+  const [{ setData, setConfig }, layerId] = useLayer(geojson);
+  return (
+    <div style={{ height: '100vh' }}>
+      <h2>useLayer</h2>
+      <div
+        onClick={() =>
+          setConfig({
+            getFillColor: [242, 108, 100, 160]
+          })
+        }
+      >
+        set config
+      </div>
+      <div onClick={() => setData(choropleth)}>set data</div>
+    </div>
+  );
+}
+
+function App() {
+  const [range, setRange] = useState(0);
 
   return (
     <>
-      {/* <button onClick={() => setData(geojson)}>geo1</button>
-      <button onClick={() => setData(geojson2)}>geo2</button> */}
-      {/* <button
-        onClick={() =>
-          setConfig((config) => {
-            return { ...config, getFillColor: [160, 160, 180, 60] };
-          })
-        }
-      >
-        config
-      </button> */}
-      {/* <button
-        onClick={() =>
-          _setConfig((config) => {
-            return { ...config, getFillColor: [160, 160, 180, 60] };
-          })
-        }
-      >
-        config
-      </button> */}
-
-      <button onClick={() => setDomain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])}>
-        domain
-      </button>
-      <div className='map-container'>
-        <Atlas>
-          <StaticMap mapboxApiAccessToken={TOKEN} />
-        </Atlas>
+      <div style={{ display: 'flex' }}>
+        <div className='map-container' style={{ position: 'fixed' }}>
+          <Atlas>
+            <StaticMap mapboxApiAccessToken={TOKEN}></StaticMap>
+          </Atlas>
+        </div>
+        <div style={{ marginLeft: '810px' }}>
+          <Layer />
+        </div>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+// console.time('Timer name')  console.timeEnd('Timer name') }
+export default App;

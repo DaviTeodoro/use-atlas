@@ -1,7 +1,8 @@
-import React, { useState, useContext, createContext, useReducer } from 'react'
+import React, { useState, useContext, createContext, useReducer } from 'react';
+import { Map } from 'immutable';
 
-const StateContext = createContext()
-const DispatchContext = createContext()
+const StateContext = createContext();
+const DispatchContext = createContext();
 
 const INITIAL_STATE = {
   viewport: {
@@ -13,40 +14,46 @@ const INITIAL_STATE = {
   },
   map: null,
   layers: new Map()
-}
+};
 
 function reducer(state, { type, payload }) {
-  // console.log(type, payload);
+  console.log(type, payload);
   switch (type) {
     case 'SET_VIEWPORT': {
       return {
         ...state,
         viewport: payload
-      }
+      };
     }
     case 'SET_MAP': {
       return {
         ...state,
         map: payload
-      }
+      };
     }
     case 'SET_LAYER': {
       return {
         ...state,
         layers: state.layers.set(payload.id, { ...payload })
-      }
+      };
+    }
+    case 'DELETE_LAYER': {
+      return {
+        ...state,
+        layers: state.layers.delete(payload)
+      };
     }
     case 'CLEAR_LAYERS': {
-      return { ...state, layers: [] }
+      return { ...state, layers: [] };
     }
     default: {
-      throw new Error(`Unhandled action type: ${type}`)
+      throw new Error(`Unhandled action type: ${type}`);
     }
   }
 }
 
 function AtlasProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   return (
     <StateContext.Provider value={state}>
@@ -54,31 +61,31 @@ function AtlasProvider({ children }) {
         {children}
       </DispatchContext.Provider>
     </StateContext.Provider>
-  )
+  );
 }
 
 function useAtlasState() {
-  const context = useContext(StateContext)
+  const context = useContext(StateContext);
 
   if (context === undefined) {
-    throw new Error('useAtlasState must be used within a AtlasProvider')
+    throw new Error('useAtlasState must be used within a AtlasProvider');
   }
 
-  return context
+  return context;
 }
 
 function useAtlasDispatch() {
-  const context = useContext(DispatchContext)
+  const context = useContext(DispatchContext);
 
   if (context === undefined) {
-    throw new Error('useAtlasDispatch must be used within a AtlasProvider')
+    throw new Error('useAtlasDispatch must be used within a AtlasProvider');
   }
 
-  return context
+  return context;
 }
 
 function useAtlas() {
-  return [useAtlasState(), useAtlasDispatch()]
+  return [useAtlasState(), useAtlasDispatch()];
 }
 
-export { AtlasProvider, useAtlasState, useAtlasDispatch, useAtlas }
+export { AtlasProvider, useAtlasState, useAtlasDispatch, useAtlas };

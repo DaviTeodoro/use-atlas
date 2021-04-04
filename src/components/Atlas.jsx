@@ -21,20 +21,20 @@ const renderInternalLayers = (layers) => {
 
 function Atlas(props) {
   const [{ viewport, layers }, dispatch] = useAtlas()
-  console.log('lol')
-  console.log('layers', layers)
+
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <DeckGL
+        {...props}
         layers={[...renderInternalLayers(layers)]}
         viewState={viewport}
         useDevicePixels={false}
         controller={true}
         onClick={(e) => console.log(e)}
+        onLoad={(e) => console.log('map', e)}
         onViewStateChange={({ viewState }) =>
           dispatch({ type: 'SET_VIEWPORT', payload: viewState })
         }
-        {...props}
       />
     </div>
   )

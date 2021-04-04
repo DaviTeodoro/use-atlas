@@ -1,42 +1,78 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useReducer } from 'react';
 import { useAtlas } from '../providers/atlasProvider';
 import { v4 as uuidv4 } from 'uuid';
 
 const DEFAULT_CONFIG = {
   type: 'GEO_JSON',
-  pickable: true,
+  pickable: false,
   stroked: false,
   getFillColor: [160, 160, 180, 160],
-  getRadius: 3,
+  getRadius: 3
 };
 
 const createNewLayer = (id, data, config) => {
   return {
     id: id,
     data: data,
-    ...config,
+    ...config
   };
 };
+function reducer(state, [type, payload]) {
+  console.log(type, payload);
+  switch (type) {
+    case 'SET_DATA': {
+      return {
+        ...state,
+        data: payload
+      };
+    }
+    case 'SET_CONFIG': {
+      return {
+        ...state,
+        config: { ...state.config, ...payload }
+      };
+    }
 
+    default: {
+      throw new Error(`Unhandled action type: ${type}`);
+    }
+  }
+}
 export default function useLayer(data, config) {
-  const [, dispatch] = useAtlas();
+  const [{ data: _data, config: _config }, dispatch] = useReducer(reducer, {
+    data: data,
+    config: { ...DEFAULT_CONFIG, ...config }
+  });
+  const [, dispatchAtlas] = useAtlas();
   const { current: layerId } = useRef(uuidv4());
-  const [_config, setConfig] = useState({ ...DEFAULT_CONFIG, ...config });
-  const [_data, setData] = useState(data);
 
   useEffect(() => {
-    dispatch({
+    dispatchAtlas({
       type: 'SET_LAYER',
-      payload: createNewLayer(layerId, _data, _config),
+      payload: createNewLayer(layerId, _data, _config)
     });
+    return () => {
+      dispatchAtlas({
+        type: 'DELETE_LAYER',
+        payload: layerId
+      });
+    };
   }, []);
 
-  useEffect(() => {
-    dispatch({
-      type: 'SET_LAYER',
-      payload: createNewLayer(layerId, _data, _config),
-    });
-  }, [_data, _config, dispatch]);
+  const setData = (config) => {
+    dispatch(['SET_DATA', config]);
+  };
 
-  return [setData, setConfig];
+  const setConfig = (config) => {
+    dispatch(['SET_CONFIG', config]);
+  };
+
+  useEffect(() => {
+    dispatchAtlas({
+      type: 'SET_LAYER',
+      payload: createNewLayer(layerId, _data, _config)
+    });
+  }, [_config, _data]);
+
+  return [{ setData, setConfig }, layerId];
 }
