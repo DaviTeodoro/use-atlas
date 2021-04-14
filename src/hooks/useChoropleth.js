@@ -6,12 +6,6 @@ import { color } from 'd3-color';
 function reducer(state, { type, payload }) {
   // console.log(type, payload)
   switch (type) {
-    case 'SET_DATA': {
-      return {
-        ...state,
-        data: payload
-      };
-    }
     case 'SET_INDICATOR': {
       return {
         ...state,
