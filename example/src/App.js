@@ -170,14 +170,13 @@ function Layer() {
 }
 
 function Choropleth() {
-  const [{ setData, setIndicator, setDomain, setConfig }] = useChoropleth(
-    choropleth,
-    {
-      indicator: 'idade',
-      domain: [(1, 3, 6, 11)],
-      colorRange: schemeBlues[7]
-    }
-  );
+  const [, { id }] = useLayer(choropleth);
+
+  const [{ setData, setIndicator, setDomain, setConfig }] = useChoropleth(id, {
+    indicator: 'idade',
+    domain: [(1, 3, 6, 11)],
+    colorRange: schemeBlues[7]
+  });
   return (
     <div style={{ height: '100vh' }}>
       <h2>useChoropleth</h2>
@@ -200,23 +199,62 @@ function Choropleth() {
 
 function App() {
   const [range, setRange] = useState(0);
+  const [{ setData, setConfig }] = useLayer(
+    {
+      id: '123123-12323'
+    },
+    choropleth
+  );
+
+  // const [{ setData, setConfig }] = useChoropleth(
+  //   {
+  //     id: '123123-12323',
+  //     indicator: 'idade',
+  //     domain: [1, 3, 6, 11],
+  //     colorRange: schemeBlues[7]
+  //   },
+  //   choropleth
+  // );
+
+  const [, layer] = useChoropleth({
+    id: '123123-12323',
+    indicator: 'idade',
+    domain: [1, 3, 6, 11],
+    colorRange: schemeBlues[7]
+  });
+  // console.log('layer', layer);
 
   return (
     <>
       <div style={{ display: 'flex' }}>
+        <div
+          style={{ cursor: 'pointer', zIndex: '9999' }}
+          onClick={() => setData(geojson2)}
+        >
+          set data
+        </div>
+        <div
+          style={{ cursor: 'pointer', zIndex: '9999' }}
+          onClick={() =>
+            setConfig({
+              getFillColor: [242, 108, 100, 10]
+            })
+          }
+        >
+          set config
+        </div>
         <div className='map-container' style={{ position: 'fixed' }}>
           <Atlas>
             <StaticMap mapboxApiAccessToken={TOKEN}></StaticMap>
           </Atlas>
         </div>
         <div style={{ marginLeft: '810px' }}>
-          <Choropleth />
-          <Layer />
+          {/* <Choropleth /> */}
+          {/* <Layer /> */}
         </div>
       </div>
     </>
   );
 }
 
-// console.time('Timer name')  console.timeEnd('Timer name') }
 export default App;

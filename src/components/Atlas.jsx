@@ -1,26 +1,26 @@
-import React from 'react'
+import React from 'react';
 
-import DeckGL from '@deck.gl/react'
+import DeckGL from '@deck.gl/react';
 
-import { useAtlas } from '../providers/atlasProvider'
-import { GeoJsonLayer } from '@deck.gl/layers'
+import { useAtlas } from '../providers/atlasProvider';
+import { GeoJsonLayer } from '@deck.gl/layers';
 
 const renderInternalLayers = (layers) => {
-  let internalLayers = []
+  let internalLayers = [];
   for (let l of layers.values()) {
     switch (l.type) {
       case 'GEO_JSON':
-        internalLayers.push(new GeoJsonLayer(l))
-        break
+        internalLayers.push(new GeoJsonLayer(l));
+        break;
       default:
-        break
+        break;
     }
   }
-  return internalLayers
-}
+  return internalLayers;
+};
 
 function Atlas(props) {
-  const [{ viewport, layers }, dispatch] = useAtlas()
+  const [{ viewport, layers }, dispatch] = useAtlas();
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -30,14 +30,14 @@ function Atlas(props) {
         viewState={viewport}
         useDevicePixels={false}
         controller={true}
-        onClick={(e) => console.log(e)}
-        onLoad={(e) => console.log('map', e)}
+        // onClick={(e) => console.log(e)}
+        // onLoad={(e) => console.log('map', e)}
         onViewStateChange={({ viewState }) =>
           dispatch({ type: 'SET_VIEWPORT', payload: viewState })
         }
       />
     </div>
-  )
+  );
 }
 
-export default Atlas
+export default Atlas;

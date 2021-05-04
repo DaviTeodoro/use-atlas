@@ -34,7 +34,10 @@ function reducer(state, { type, payload }) {
     case 'SET_LAYER': {
       return {
         ...state,
-        layers: state.layers.set(payload.id, { ...payload })
+        layers: state.layers.set(payload.id, {
+          ...state.layers.get(payload.id),
+          ...payload
+        })
       };
     }
     case 'DELETE_LAYER': {
@@ -54,7 +57,6 @@ function reducer(state, { type, payload }) {
 
 function AtlasProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
