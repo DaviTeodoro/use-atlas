@@ -19,8 +19,9 @@ const renderInternalLayers = (layers) => {
   return internalLayers;
 };
 
+//TODO: adicionar estado inicial como prop, uma coisa legal seria adicionar um boundbox de feature
 function Atlas(props) {
-  const [{ viewport, layers }, dispatch] = useAtlas();
+  const [{ viewport, layers }, dispatch] = useAtlas(props.initialState);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -30,10 +31,8 @@ function Atlas(props) {
         viewState={viewport}
         useDevicePixels={false}
         controller={true}
-        // onClick={(e) => console.log(e)}
-        // onLoad={(e) => console.log('map', e)}
         onViewStateChange={({ viewState }) =>
-          dispatch({ type: 'SET_VIEWPORT', payload: viewState })
+          dispatch(['SET_VIEWPORT', viewState])
         }
       />
     </div>

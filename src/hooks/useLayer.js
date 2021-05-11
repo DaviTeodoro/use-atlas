@@ -37,37 +37,22 @@ export default function useLayer(config, data) {
 
   useEffect(() => {
     if (data) {
-      dispatchAtlas({
-        type: 'SET_LAYER',
-        payload: createNewLayer(id, data, config)
-      });
+      dispatchAtlas(['SET_LAYER', createNewLayer(id, data, config)]);
     } else {
-      dispatchAtlas({
-        type: 'SET_LAYER',
-        payload: { id: id, ...config }
-      });
+      dispatchAtlas(['SET_LAYER', { id: id, ...config }]);
     }
 
     return () => {
-      dispatchAtlas({
-        type: 'DELETE_LAYER',
-        payload: id
-      });
+      dispatchAtlas(['DELETE_LAYER', id]);
     };
   }, []);
 
   const setData = (data) => {
-    dispatchAtlas({
-      type: 'SET_LAYER',
-      payload: { id: id, data: data }
-    });
+    dispatchAtlas(['SET_LAYER', { id: id, data: data }]);
   };
 
   const setConfig = (config) => {
-    dispatchAtlas({
-      type: 'SET_LAYER',
-      payload: { id: id, ...config }
-    });
+    dispatchAtlas(['SET_LAYER', { id: id, ...config }]);
   };
 
   return [{ setData, setConfig }, layers.get(id)];

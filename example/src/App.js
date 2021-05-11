@@ -3,7 +3,7 @@ import { StaticMap } from 'react-map-gl';
 import { schemeBlues } from 'd3-scale-chromatic';
 
 import { useState, useEffect } from 'react';
-import { Atlas, useLayer, useChoropleth, useBubble } from 'use-atlas';
+import { Atlas, useLayer, useChoropleth, useBubble, useAtlas } from 'use-atlas';
 import './App.css';
 
 const TOKEN =
@@ -241,6 +241,12 @@ function Choropleth() {
 function App() {
   const [range, setRange] = useState(0);
 
+  // const [{ viewport, layers }, dispatch] = useAtlas({
+  //   longitude: 35.50411547,
+  //   latitude: 33.89508665,
+  //   zoom: 12
+  // });
+
   const [{ setData, setConfig }] = useBubble(
     {
       id: '123123-12323',
@@ -288,7 +294,13 @@ function App() {
           set config
         </div>
         <div className='map-container' style={{ position: 'fixed' }}>
-          <Atlas>
+          <Atlas
+            initialState={{
+              longitude: 35.50411547,
+              latitude: 33.89508665,
+              zoom: 12
+            }}
+          >
             <StaticMap mapboxApiAccessToken={TOKEN}></StaticMap>
           </Atlas>
         </div>

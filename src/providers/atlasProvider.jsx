@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext, useReducer } from 'react';
+import React, { useEffect, useContext, createContext, useReducer } from 'react';
 import { Map } from 'immutable';
 
 const StateContext = createContext();
@@ -8,15 +8,15 @@ const INITIAL_STATE = {
   viewport: {
     width: 600,
     height: 600,
-    longitude: 35.50411547,
-    latitude: 33.89508665,
-    zoom: 12
+    longitude: 0,
+    latitude: 0,
+    zoom: 0
   },
   map: null,
   layers: new Map()
 };
 
-function reducer(state, { type, payload }) {
+function reducer(state, [type, payload]) {
   console.log(type, payload);
   switch (type) {
     case 'SET_VIEWPORT': {
@@ -76,18 +76,20 @@ function useAtlasState() {
   return context;
 }
 
-function useAtlasDispatch() {
+function useAtlasDispatch(initialState) {
   const context = useContext(DispatchContext);
 
   if (context === undefined) {
     throw new Error('useAtlasDispatch must be used within a AtlasProvider');
   }
 
+  useEffect(() => initialState && context(['SET_VIEWPORT', initialState]), []);
+
   return context;
 }
 
-function useAtlas() {
-  return [useAtlasState(), useAtlasDispatch()];
+function useAtlas(initialState) {
+  return [useAtlasState(), useAtlasDispatch(initialState)];
 }
 
 export { AtlasProvider, useAtlasState, useAtlasDispatch, useAtlas };
