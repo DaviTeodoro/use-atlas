@@ -6,7 +6,16 @@ const DEFAULT_CONFIG = {
   pickable: false,
   stroked: false,
   getFillColor: [160, 160, 180, 160],
-  getRadius: 3
+  getRadius: 100,
+  filled: true
+  // extruded: true,
+  // lineWidthScale: 20,
+  // lineWidthMinPixels: 2,
+  // getFillColor: [160, 160, 180, 200],
+  // getLineColor: [160, 160, 180, 160],
+  // getRadius: 100,
+  // getLineWidth: 1,
+  // getElevation: 30
 };
 
 const createNewLayer = (id, data, config) => {

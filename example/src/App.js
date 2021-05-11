@@ -3,7 +3,7 @@ import { StaticMap } from 'react-map-gl';
 import { schemeBlues } from 'd3-scale-chromatic';
 
 import { useState, useEffect } from 'react';
-import { Atlas, useLayer, useChoropleth } from 'use-atlas';
+import { Atlas, useLayer, useChoropleth, useBubble } from 'use-atlas';
 import './App.css';
 
 const TOKEN =
@@ -136,6 +136,47 @@ const choropleth = [
   }
 ];
 
+const bubble = [
+  {
+    type: 'Feature',
+    properties: {
+      'marker-color': '#7e7e7e',
+      'marker-size': 'medium',
+      'marker-symbol': '',
+      count: 100
+    },
+    geometry: {
+      type: 'Point',
+      coordinates: [35.47403812408447, 33.90593387655014]
+    }
+  },
+  {
+    type: 'Feature',
+    properties: {
+      'marker-color': '#7e7e7e',
+      'marker-size': 'medium',
+      'marker-symbol': '',
+      count: 50
+    },
+    geometry: {
+      type: 'Point',
+      coordinates: [35.47506809234619, 33.910350367328554]
+    }
+  },
+  {
+    type: 'Feature',
+    properties: {
+      'marker-color': '#7e7e7e',
+      'marker-size': 'medium',
+      'marker-symbol': '',
+      count: 75
+    },
+    geometry: {
+      type: 'Point',
+      coordinates: [35.480732917785645, 33.90807091679133]
+    }
+  }
+];
 function Layer() {
   const [{ setData, setConfig }, layerId] = useLayer(geojson);
   return (
@@ -174,7 +215,7 @@ function Choropleth() {
 
   const [{ setData, setIndicator, setDomain, setConfig }] = useChoropleth(id, {
     indicator: 'idade',
-    domain: [(1, 3, 6, 11)],
+    domain: [1, 3, 6, 11],
     colorRange: schemeBlues[7]
   });
   return (
@@ -199,12 +240,21 @@ function Choropleth() {
 
 function App() {
   const [range, setRange] = useState(0);
-  const [{ setData, setConfig }] = useLayer(
+
+  const [{ setData, setConfig }] = useBubble(
     {
-      id: '123123-12323'
+      id: '123123-12323',
+      indicator: 'count'
     },
-    choropleth
+    bubble
   );
+
+  useChoropleth({
+    id: '123123-12323',
+    indicator: 'count',
+    domain: [50, 75, 200],
+    colorRange: schemeBlues[7]
+  });
 
   // const [{ setData, setConfig }] = useChoropleth(
   //   {
@@ -216,12 +266,6 @@ function App() {
   //   choropleth
   // );
 
-  const [, layer] = useChoropleth({
-    id: '123123-12323',
-    indicator: 'idade',
-    domain: [1, 3, 6, 11],
-    colorRange: schemeBlues[7]
-  });
   // console.log('layer', layer);
 
   return (
