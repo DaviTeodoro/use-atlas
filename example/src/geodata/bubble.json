@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "count": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.47403812408447, 33.90593387655014]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "count": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.47506809234619, 33.910350367328554]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "count": 75
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.480732917785645, 33.90807091679133]
+      }
+    }
+  ]
+}

@@ -3,11 +3,14 @@ import { useAtlas } from '../providers/atlasProvider';
 
 const DEFAULT_CONFIG = {
   type: 'GEO_JSON',
-  pickable: false,
+  pickable: true,
   stroked: false,
   getFillColor: [160, 160, 180, 160],
   getRadius: 100,
-  filled: true
+  filled: true,
+  getLineColor: [60, 60, 60, 20],
+  stroked: true,
+  lineWidthMinPixels: 2
   // extruded: true,
   // lineWidthScale: 20,
   // lineWidthMinPixels: 2,
