@@ -33,6 +33,9 @@ function reducer(state, { type, payload }) {
 function generateChoropleth(data, indicator, domain, colorRange) {
   const colorScale = scaleThreshold().domain(domain).range(colorRange);
   return data.map((d) => {
+    if (!d.properties[indicator]) {
+      throw new Error(`Indicator "${indicator}" not found.`);
+    }
     const rgbColor = color(colorScale(d.properties[indicator]));
     d.fillColor = [rgbColor.r, rgbColor.g, rgbColor.b, 160];
     return d;

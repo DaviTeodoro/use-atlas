@@ -59,12 +59,12 @@ function App() {
   //   bubble
   // );
 
-  // useChoropleth({
-  //   id: '123123-12323',
-  //   indicator: 'count',
-  //   domain: [50, 75, 200],
-  //   colorRange: schemeBlues[7]
-  // });
+  useChoropleth({
+    id: '123123-123123',
+    indicator: 'idade',
+    domain: [50, 75, 200],
+    colorRange: schemeBlues[7]
+  });
 
   return (
     <>

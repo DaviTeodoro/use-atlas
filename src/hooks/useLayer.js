@@ -21,15 +21,6 @@ const DEFAULT_CONFIG = {
   // getElevation: 30
 };
 
-const createNewLayer = (id, data, config) => {
-  return {
-    id: id,
-    data: data,
-    ...DEFAULT_CONFIG,
-    ...config
-  };
-};
-
 export default function useLayer(config, data) {
   if (!config.id) {
     throw new Error('Layer must have a id');
@@ -40,7 +31,7 @@ export default function useLayer(config, data) {
 
   useEffect(() => {
     if (data) {
-      dispatchAtlas(['SET_LAYER', createNewLayer(id, data, config)]);
+      dispatchAtlas(['SET_LAYER', Layer(id, data, config)]);
     } else {
       dispatchAtlas(['SET_LAYER', { id: id, ...config }]);
     }
@@ -59,4 +50,15 @@ export default function useLayer(config, data) {
   };
 
   return [{ setData, setConfig }, layers.get(id)];
+}
+
+function Layer(id, _data, config) {
+  const data = Array.isArray(_data) ? _data : _data.features;
+
+  return Object.freeze({
+    id,
+    data,
+    ...DEFAULT_CONFIG,
+    ...config
+  });
 }
