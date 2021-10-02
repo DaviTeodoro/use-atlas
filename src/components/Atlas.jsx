@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import DeckGL from '@deck.gl/react';
 
@@ -19,15 +19,15 @@ const renderInternalLayers = (layers) => {
   return internalLayers;
 };
 
-//TODO: adicionar estado inicial como prop, uma coisa legal seria adicionar um boundbox de feature
 function Atlas(props) {
   const [{ viewport, layers }, dispatch] = useAtlas(props.initialState);
+  const internalLayers = useMemo(() => renderInternalLayers(layers), [layers]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <DeckGL
         {...props}
-        layers={[...renderInternalLayers(layers)]}
+        layers={internalLayers}
         viewState={viewport}
         useDevicePixels={false}
         controller={true}
