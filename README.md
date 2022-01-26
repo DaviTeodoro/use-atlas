@@ -25,15 +25,15 @@ useAtlas is easy to use and setup.
 AtlasProvider provides the Atlas state and dispatcher witch will be consumed by all its hooks.
 
 ```jsx
-import App from './App'
-import { AtlasProvider } from 'use-atlas'
+import App from './App';
+import { AtlasProvider } from 'use-atlas';
 
 export default function App() {
   return (
     <AtlasProvider>
       <App />
     </AtlasProvider>
-  )
+  );
 }
 ```
 
@@ -42,12 +42,12 @@ export default function App() {
 You can now have maps and layers wherever you like inside your App.
 
 ```jsx
-import { StaticMap } from 'react-map-gl'
+import { StaticMap } from 'react-map-gl';
 
-import { Atlas, useLayer } from 'use-atlas'
+import { Atlas, useLayer } from 'use-atlas';
 
 function App() {
-  const [setData, setConfig] = useLayer(geojson)
+  const [setData, setConfig] = useLayer(geojson);
 
   return (
     <>
@@ -57,10 +57,10 @@ function App() {
         </Atlas>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
 ```
 
 > Did you notice the StaticMap? It is your choice. useAtlas is agnostic about which static map service you chose. For more information see [using-with-map](https://deck.gl/docs/get-started/using-with-map).
@@ -98,7 +98,7 @@ The map compoment, it is a wrapper around [DeckGL React component](https://deck.
 The more basic hook, it renders a geoJson or a array of features. All other hooks are composed from it.
 
 ```jsx
-const [setData, setConfig] = useLayer(geojson)
+const [setData, setConfig] = useLayer(geojson);
 ```
 
 ### useChoroplet
@@ -110,7 +110,7 @@ const [setData, setIndicator, setDomain] = useChoropleth(
   featuresArray,
   'someIndicator',
   [1, 3, 6, 11]
-)
+);
 ```
 
 ## License
