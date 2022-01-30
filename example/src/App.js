@@ -4,6 +4,9 @@ import { schemeBlues } from 'd3-scale-chromatic';
 
 import { useState, useEffect } from 'react';
 import { Atlas, useLayer, useChoropleth, useBubble, useAtlas } from 'use-atlas';
+
+import Siderbar from './components/Sidebar';
+
 import './App.css';
 
 import POLYGONS from './geodata/polygons.json';
@@ -26,16 +29,16 @@ const EARTHQUAKES =
 function App() {
   const [range, setRange] = useState(0);
 
-  const [{ setData, setConfig }] = useLayer(
-    {
-      id: '123123-123123',
-      getLineColor: [60, 60, 60],
-      stroked: true,
-      lineWidthMinPixels: 2
-    },
+  // const [{ setData, setConfig }] = useLayer(
+  //   {
+  //     id: '123123-123123',
+  //     getLineColor: [60, 60, 60],
+  //     stroked: true,
+  //     lineWidthMinPixels: 2
+  //   },
 
-    CHOROPLETH
-  );
+  //   CHOROPLETH
+  // );
   // const [{ setData, setConfig }] = useLayer(
   //   {
   //     id: '123123-123123',
@@ -59,46 +62,29 @@ function App() {
   //   bubble
   // );
 
-  useChoropleth({
-    id: '123123-123123',
-    indicator: 'idade',
-    domain: [50, 75, 200],
-    colorRange: schemeBlues[7]
-  });
+  // useChoropleth({
+  //   id: '123123-123123',
+  //   indicator: 'idade',
+  //   domain: [50, 75, 200],
+  //   colorRange: schemeBlues[7]
+  // });
 
   return (
     <>
-      <div style={{ display: 'flex' }}>
-        <div
-          style={{ cursor: 'pointer', zIndex: '9999' }}
-          onClick={() => setData(POLYGONS)}
-        >
-          set data
+      <div style={{ height: '100vh', display: 'flex' }}>
+        <div className='sidebar'>
+          <Siderbar />
         </div>
-        <div
-          style={{ cursor: 'pointer', zIndex: '9999' }}
-          onClick={() =>
-            setConfig({
-              getFillColor: [242, 108, 100, 10]
-            })
-          }
-        >
-          set config
-        </div>
-        <div className='map-container' style={{ position: 'fixed' }}>
+        <div className='map-container'>
           <Atlas
             initialState={{
               longitude: 35.50411547,
               latitude: 33.89508665,
-              zoom: 12
+              zoom: 1
             }}
           >
             <StaticMap mapboxApiAccessToken={TOKEN}></StaticMap>
           </Atlas>
-        </div>
-        <div style={{ marginLeft: '810px' }}>
-          {/* <Choropleth /> */}
-          {/* <Layer /> */}
         </div>
       </div>
     </>
