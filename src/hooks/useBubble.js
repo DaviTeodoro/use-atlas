@@ -1,28 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import useLayer from './useLayer';
 
-function reducer(state, { type, payload }) {
-  // console.log(type, payload)
-  switch (type) {
-    case 'SET_INDICATOR': {
-      return {
-        ...state,
-        indicator: payload
-      };
-    }
-    default: {
-      throw new Error(`Unhandled action type: ${type}`);
-    }
-  }
-}
-
-function generateBubble(data, indicator) {
-  return data.map((d) => {
-    d.radius = d.properties[indicator];
-    return d;
-  });
-}
-
 export default function useBubble(config, data) {
   const [{ setData, setConfig }, layer] = useLayer(
     {
@@ -32,7 +10,7 @@ export default function useBubble(config, data) {
     data
   );
 
-  const [{ indicator, domain, colorRange }, dispatch] = useReducer(reducer, {
+  const [{ indicator }, dispatch] = useReducer(reducer, {
     indicator: config.indicator
   });
 
@@ -56,4 +34,26 @@ export default function useBubble(config, data) {
   };
 
   return [{ setData, setIndicator, setConfig }, layer];
+}
+
+function reducer(state, { type, payload }) {
+  // console.log(type, payload)
+  switch (type) {
+    case 'SET_INDICATOR': {
+      return {
+        ...state,
+        indicator: payload
+      };
+    }
+    default: {
+      throw new Error(`Unhandled action type: ${type}`);
+    }
+  }
+}
+
+function generateBubble(data, indicator) {
+  return data.map((d) => {
+    d.radius = d.properties[indicator] * 100;
+    return d;
+  });
 }
