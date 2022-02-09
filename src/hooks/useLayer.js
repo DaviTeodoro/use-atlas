@@ -5,11 +5,12 @@ const DEFAULT_CONFIG = {
   type: 'GEO_JSON',
   pickable: true,
   stroked: false,
-  getFillColor: [160, 160, 180, 160],
-  getRadius: 100,
+  // TODO: essa questao do default config precisa mudar...
+  // getFillColor: [160, 160, 180, 160],
+  // getRadius: 100,
   filled: true,
   getLineColor: [60, 60, 60, 20],
-  stroked: true,
+  // stroked: true,
   lineWidthMinPixels: 2
   // extruded: true,
   // lineWidthScale: 20,
@@ -31,14 +32,15 @@ export default function useLayer(config, data) {
 
   useEffect(() => {
     if (data) {
+      console.log('eu to setando default?');
       dispatchAtlas(['SET_LAYER', Layer(id, data, config)]);
     } else {
       dispatchAtlas(['SET_LAYER', { id: id, ...config }]);
     }
 
-    return () => {
-      dispatchAtlas(['DELETE_LAYER', id]);
-    };
+    // return () => {
+    //   dispatchAtlas(['DELETE_LAYER', id]);
+    // };
   }, []);
 
   const setData = (data) => {

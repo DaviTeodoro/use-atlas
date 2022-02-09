@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import useLayer from './useLayer';
-import d3Scale from 'd3-scale';
+import * as d3Scale from 'd3-scale';
 import { color } from 'd3-color';
 
 export default function useChoropleth(config, data = []) {

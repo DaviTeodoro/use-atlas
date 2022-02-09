@@ -17,7 +17,7 @@ const INITIAL_STATE = {
 };
 
 function reducer(state, [type, payload]) {
-  console.log(type, payload);
+  // console.log(type, payload);
   switch (type) {
     case 'SET_VIEWPORT': {
       return {
@@ -32,6 +32,7 @@ function reducer(state, [type, payload]) {
       };
     }
     case 'SET_LAYER': {
+      console.log('layer config?', state.layers.get(payload.id));
       return {
         ...state,
         layers: state.layers.set(payload.id, {
