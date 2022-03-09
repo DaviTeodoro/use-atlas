@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
+import loadable from '@loadable/component';
 
-import DeckGL from '@deck.gl/react';
+const DeckGL = loadable(() => import('./DeckGL'), { ssr: false });
 
 import { useAtlas } from '../providers/atlasProvider';
 import { GeoJsonLayer } from '@deck.gl/layers';
