@@ -1,4 +1,4 @@
-# useAtlas
+# useAtlas-beta 
 
 > A powerful and easy to use react-hooks library to accelerate web maps development.
 
