@@ -1,6 +1,6 @@
 {
   "name": "use-atlas",
-  "version": "0.5.13",
+  "version": "0.5.17",
   "description": "geo hooks",
   "author": "DaviTeodoro",
   "license": "MIT",
@@ -9,11 +9,10 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.es.js",
+  "main": "dist/index.js",
   "module": "dist/index.es.js",
   "exports": {
     ".": {
-      "require": "./dist/index.es.js",
       "import": "./dist/index.es.js"
     }
   },

@@ -28,7 +28,5 @@ module.exports = defineConfig({
     plugin({
       jsxRuntime: 'classic'
     })
-  ],
-  target: 'esnext',
-  sourcemap: true
+  ]
 });
