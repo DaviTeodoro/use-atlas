@@ -95,7 +95,7 @@ The map compoment, it is a wrapper around [DeckGL React component](https://deck.
 
 ### useLayer
 
-The more basic hook, it renders a geoJson or a array of features. All other hooks are composed from it.
+The most basic hook, it renders a geoJson or a array of features. All other hooks are composed from it.
 
 ```jsx
 const [setData, setConfig] = useLayer(geojson);
